@@ -1,15 +1,109 @@
-.App {
-    text-align: center;
-  }
-  
-  
-.App-header {
-    background-color: #d9d9da;
-    min-height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+}
+.container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(20px + 2vmin);
-    color: rgb(13, 61, 83);
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+}
+header {
+    background-color: #20232a;
+    color: #61dafb;
+    padding: 0 15px;
+
+    p {
+        font-weight: bold;
+        font-size: 1.6rem;
+    }
+}
+main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.box-titulo {
+    background-color: #282c34;
+    padding-bottom: 50px;
+
+    h1 {
+        color: #61dafb;
+        font-size: 3rem;
+    }
+
+    p {
+      font-size: 2.4rem;  
+      color: #fff;
+      margin-bottom: 50px;
+    }
+
+    a {
+        text-decoration: none;
+        background-color: #61dafb;
+        color: #000;
+        padding: 10px 20px;
+        font-size: 2rem;
+        border-radius: 5px;
+        transition: 400ms ease-in-out;
+
+        &:hover {
+            background-color: #61dafbb7;
+            color: #ffffff;
+        }
+    }
+}
+.box-requisitos {
+    padding: 30px 10px;
+
+    h2 {
+        font-size: 2.8rem;
+    }
+
+    p {
+        font-size: 1.7rem;
+    }
+    .box-cards {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 80px;
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #282c34;
+            width: calc((100% / 3) - 10px);
+            max-width: 300px;
+            margin: 5px;
+            padding: 20px 15px;
+            border-radius: 5px;
+            box-shadow: 5px 5px rgb(145,145,145);
+
+            h3 {
+                margin: 0 0 10px;
+                color: #edc854;
+                font-size: 1.8rem;
+            }
+
+            p {
+                margin: 0;
+                color: #fff;
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+footer {
+    background-color: #f2f3f6;
+    text-align: center;
+    font-size: 1.5rem;
 }
