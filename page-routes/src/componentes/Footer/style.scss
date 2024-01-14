@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+footer {
+    background-color: grey;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    font-size: 14px;
+    justify-content: center;
+}

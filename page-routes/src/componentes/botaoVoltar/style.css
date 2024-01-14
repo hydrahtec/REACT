@@ -2,4 +2,24 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.area-botao {
+  width: 100%;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.botao-voltar {
+  padding: 20px;
+  text-decoration: none;
+  background-color: #f7df1e;
+  color: #000;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.404);
+  transition: 300ms ease-in-out;
+}
+.botao-voltar:hover {
+  background-color: rgba(247, 222, 30, 0.5882352941);
 }/*# sourceMappingURL=style.css.map */
