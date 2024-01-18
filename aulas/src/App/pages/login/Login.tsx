@@ -15,8 +15,8 @@
 //         </div>
 //     );
 // };
-
-import {useEffect, useState} from 'react';
+/*segunda aula useEffect e useState*/
+import {useEffect, useState, useMemo} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -46,12 +46,17 @@ useEffect(() => {
     console.log(password);
  };
 
+const emailLength = useMemo(() => {
+    return email.length * 1000;
+}, [email.length]);
+
 const voltar = () => {
     navigate('/pagina-inicial');
 }
 return (
     <div>
         <form>
+            <p>O numero de letras do email é: {emailLength}</p>
             <label>
                 <span>Email: </span>
                 <input value={email} onChange={e => setEmail(e.target.value) } />
@@ -70,3 +75,6 @@ return (
     </div>
     );
 };
+
+/*Terceira aula useMemo*/
+
