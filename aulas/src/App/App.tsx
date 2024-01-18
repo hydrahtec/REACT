@@ -1,7 +1,9 @@
+import {Rotas} from './routes'
+
 export const App = () => {
   return (
     <div className="App">
-      Olá, inicio das aulas
+      <Rotas />
     </div>
   );
 }
