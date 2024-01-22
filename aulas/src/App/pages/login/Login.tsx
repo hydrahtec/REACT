@@ -16,10 +16,12 @@
 //     );
 // };
 /*segunda aula useEffect e useState*/
-import {useEffect, useState, useMemo} from 'react';
+import {useEffect, useState, useMemo, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+    const inputPasswordRef = useRef<HTMLInputElement>(null);
+
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
 
@@ -44,6 +46,8 @@ useEffect(() => {
  const cliqueBotao = () => {
     console.log(email);
     console.log(password);
+    // inputPasswordRef.current?.focus();
+    // da focus no senha quando o botão é clicado.
  };
 
 const emailLength = useMemo(() => {
@@ -59,12 +63,12 @@ return (
             <p>O numero de letras do email é: {emailLength}</p>
             <label>
                 <span>Email: </span>
-                <input value={email} onChange={e => setEmail(e.target.value) } />
+                <input value={email} onChange={e => setEmail(e.target.value) } onKeyDown={e => e.key === 'Enter' ? inputPasswordRef.current?.focus() : undefined} />
             </label>
 
             <label>
                 <span>Senha: </span>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value) } />
+                <input type="password" ref={inputPasswordRef} value={password} onChange={e => setPassword(e.target.value) } />
             </label>
 
             <button type="button" onClick={cliqueBotao} >
