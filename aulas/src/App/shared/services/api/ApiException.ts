@@ -5,5 +5,5 @@ export class ApiException extends Error {
 		super();
 		
 		this.message = message;
-};
+	};
 };
