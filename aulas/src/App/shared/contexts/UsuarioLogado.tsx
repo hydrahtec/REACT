@@ -8,26 +8,26 @@ interface IUsuarioLogadoContextData {
 export const UsuarioLogadoContext = createContext<IUsuarioLogadoContextData>({} as IUsuarioLogadoContextData);
 
 interface IUsuarioLogadoProviderProps {
-	children: React.ReactNode
+	children: React.ReactNode;
 };
 
 export const UsuarioLogadoProvider: React.FC<IUsuarioLogadoProviderProps> = ({children}) => {
 	const [nome, setNome] = useState('');
 	
-	useEffect(() = > {
+	useEffect(() => {
 		setTimeout(() => {
 			setNome('Lucas');
 		}, 1000);
 	});
 
-const handleLogout = useCallback(() => {
+	const handleLogout = useCallback(() => {
 	console.log('Logout execultou');
-},[]);
+	},[]);
 
-return (
-	<UsuarioLogadoContext.Provider value={{nomeDoUsuario: nome, logout: handleLogout}}>
-	{children}
-	<UsuarioLogadoContext.Provider/>
-);
+	return (
+		<UsuarioLogadoContext.Provider value={{nomeDoUsuario: nome, logout: handleLogout}}>
+		{children}
+		</UsuarioLogadoContext.Provider>
+	);
 
 };

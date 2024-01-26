@@ -1,13 +1,13 @@
 import { ApiException } from "../ApiException";
 import { Api } from "../ApiConfig";
 
-export interface ITerefa {
+export interface ITarefa {
     id: number;
     title: string;
     isCompleted: boolean;
 };
 
-const getAll= async (): Promise<ITerefa[] | ApiException> => {
+const getAll= async (): Promise<ITarefa[] | ApiException> => {
     try {
       const {data} = await Api().get('/tarefas');
       return data;  
@@ -15,7 +15,7 @@ const getAll= async (): Promise<ITerefa[] | ApiException> => {
         return new ApiException(error.message || 'Erro ao consultar o registro.')
     }
 };
-const getById = async (id: number): Promise<ITerefa | ApiException> => {
+const getById = async (id: number): Promise<ITarefa | ApiException> => {
     try {
         const {data} = await Api().get('/tarefas/${id}');
         return data;
@@ -23,15 +23,15 @@ const getById = async (id: number): Promise<ITerefa | ApiException> => {
         return new ApiException(error.message || 'Erro ao consultar registro');
     }
 };
-const create = async (dataToCreate: Omit<ITerefa, 'id'>): Promise<ITerefa | ApiException> => {
+const create = async (dataToCreate: Omit<ITarefa, 'id'>): Promise<ITarefa | ApiException> => {
     try {
-        const {data} = await Api().post<any>('/tarefas', dataToCreate);
+        const {data} = await Api().post('/tarefas', dataToCreate);
         return data;
     } catch (error: any) {
         return new ApiException(error.message || 'Erro ao criar o registro');
     }
 };
-const updateById = async (id: number, dataToUpdate: ITerefa): Promise<ITerefa | ApiException> => {
+const updateById = async (id: number, dataToUpdate: ITarefa): Promise<ITarefa | ApiException> => {
     try {
         const {data} = await Api().put('/tarefas/${id}', dataToUpdate);
         return data;
