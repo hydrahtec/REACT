@@ -4,12 +4,14 @@ import {ITarefa, TarefasService} from '../../shared/services/api/tarefas/Tarefas
 import { ApiException } from '../../shared/services/api/ApiException';
 import { UsuarioLogadoContext } from '../../shared/contexts';
 
+interface IListeItem {
+    title: string;
+    isSelected: boolean;
+}
 
 export const Dashboard = () => {
-    const [lista, setLista] = useState<string[]>(['teste1','teste2','teste3']);
+    const [lista, setLista] = useState<IListeItem[]>([]);
 
-
-    
 
     useEffect(() => {}, []);
 
@@ -21,9 +23,14 @@ export const Dashboard = () => {
             e.currentTarget.value = '';
 
             setLista((oldLista) => {
-                if (oldLista.includes(value)) return oldLista;
+                if (oldLista.some(ListItem => ListItem.title === value)) return oldLista;
                 
-                return [...oldLista, value];
+                return [...oldLista, 
+                {
+                    title: value,
+                    isSelected: false,
+                }
+                ];
             });
         }
     }, []);
@@ -36,8 +43,20 @@ export const Dashboard = () => {
             onKeyDown={handleInputKeyDown}
         />
          <ul>
-            {lista.map((value) => {
-                return <li key={value}>{value}</li>
+            {lista.map((ListItem) => {
+                return <li key={ListItem.title}>
+                    <input type="checkbox" name="Selected" id="Selected" placeholder='Selecione' onChange={() => {
+                        setLista(oldList => {
+                            return oldList.map(ListItem => {
+                                return {
+                                  ...ListItem,
+                                    isSelected:
+                                }
+                            });
+                        })
+                    }} />
+                    {ListItem.title}
+                    </li>
             })}
          </ul>
         </div>
