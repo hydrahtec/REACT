@@ -18,6 +18,8 @@
 /*segunda aula useEffect e useState*/
 import {useEffect, useState, useMemo, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { InputLogin } from './components/InputLogin';
+
 
 export const Login = () => {
     const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -61,27 +63,27 @@ return (
     <div>
         <form>
             <p>O numero de letras do email é: {emailLength}</p>
-//            <label>
-//                <span>Email: </span>
-//                <input value={email} onChange={e => //setEmail(e.target.value) } onKeyDown={e => e.key === 'Enter' ? //inputPasswordRef.current?.focus() : undefined} />
-//            </label>
+            {/* <label>
+                <span>Email: </span>
+                <input value={email} onChange={e => setEmail(e.target.value) } onKeyDown={e => e.key === 'Enter' ? //inputPasswordRef.current?.focus() : undefined} />
+            </label> */}
 
 	<InputLogin
 	label='Email: '
 	value={email}
-	onchange={newValue => setEmail(newValeu)}
-	onPressenter={() => inputPasswordRef.current?.focus()}
+	onChange={(newValue) => {setEmail(newValue)}}
+	onPressEnter={() => inputPasswordRef.current?.focus()}
 	 />
 
-//            <label>
-//                <span>Senha: </span>
-//                <input type="password" ref={inputPasswordRef} //value={password} onChange={e => setPassword(e.target.value) } />
-//            </label>
+            {/* <label>
+                <span>Senha: </span>
+                <input type="password" ref={inputPasswordRef} value={password} onChange={e => setPassword(e.target.value) } />
+            </label> */}
 
 	<InputLogin
 	label='Senha: '
 	value={password}
-	onchange={newValue => setPassWord(newValeu)}
+	onChange={(newValue) => {setPassword(newValue)}}
 	ref={inputPasswordRef}
 	 />
 
