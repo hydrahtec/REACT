@@ -3,17 +3,19 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 import {ITarefa, TarefasService} from '../../shared/services/api/tarefas/TarefasService';
 import { ApiException } from '../../shared/services/api/ApiException';
 
-
-interface IListeItem {
-    title: string;
-    isSelected: boolean;
-}
-
 export const Dashboard = () => {
-    const [lista, setLista] = useState<IListeItem[]>([]);
+    const [lista, setLista] = useState<ITarefa[]>([]);
 
-
-    useEffect(() => {}, []);
+    useEffect(() => {
+        TarefasService.getAll()
+        .then((result) => {
+            if (result instanceof ApiException) {
+                alert(result.message);
+            } else {
+                setLista(result);
+            }
+        });
+    }, []);
 
     const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === 'Enter') {
@@ -22,18 +24,18 @@ export const Dashboard = () => {
             const value = e.currentTarget.value;
             e.currentTarget.value = '';
 
-            setLista((oldLista) => {
-                if (oldLista.some(ListItem => ListItem.title === value)) return oldLista;
-                
-                return [...oldLista, 
-                {
-                    title: value,
-                    isSelected: false,
+            if (lista.some((listItem) => listItem.title === value)) return;
+
+            TarefasService.create({title: value, isCompleted: false})
+            .then((result) => {
+                if (result instanceof ApiException) {
+                    alert(result.message)
+                } else {
+                    setLista((oldList) => [...oldList, result]);
                 }
-                ];
             });
         }
-    }, []);
+    }, [lista]);
 
     return (
         <div>
