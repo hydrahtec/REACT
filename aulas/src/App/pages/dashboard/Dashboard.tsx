@@ -2,7 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 
 import {ITarefa, TarefasService} from '../../shared/services/api/tarefas/TarefasService';
 import { ApiException } from '../../shared/services/api/ApiException';
-import { UsuarioLogadoContext } from '../../shared/contexts';
+
 
 interface IListeItem {
     title: string;
@@ -42,16 +42,21 @@ export const Dashboard = () => {
         <input placeholder='Digite o proximo nome: '
             onKeyDown={handleInputKeyDown}
         />
+        <p>{lista.filter((ListItem) => ListItem.isSelected).length}</p>
+
          <ul>
             {lista.map((ListItem) => {
                 return <li key={ListItem.title}>
-                    <input type="checkbox" name="Selected" id="Selected" placeholder='Selecione' onChange={() => {
+                    <input type="checkbox" name="Selected" id="Selected" placeholder='Selecione' 
+                    checked={ListItem.isSelected}
+                    onChange={() => {
                         setLista(oldList => {
-                            return oldList.map(ListItem => {
+                            return oldList.map(oldListItem => {
+                                const newIsSelected = oldListItem.title === ListItem.title ? !oldListItem.isSelected : oldListItem.isSelected;
                                 return {
                                   ...ListItem,
-                                    isSelected:
-                                }
+                                    isSelected: newIsSelected,
+                                };
                             });
                         })
                     }} />
@@ -61,5 +66,4 @@ export const Dashboard = () => {
          </ul>
         </div>
     );
-   
 };
