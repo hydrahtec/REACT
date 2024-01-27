@@ -17,7 +17,7 @@ const getAll= async (): Promise<ITarefa[] | ApiException> => {
 };
 const getById = async (id: number): Promise<ITarefa | ApiException> => {
     try {
-        const {data} = await Api().get('/tarefas/${id}');
+        const {data} = await Api().get(`/tarefas/${id}`);
         return data;
     } catch (error: any) {
         return new ApiException(error.message || 'Erro ao consultar registro');
@@ -33,7 +33,7 @@ const create = async (dataToCreate: Omit<ITarefa, 'id'>): Promise<ITarefa | ApiE
 };
 const updateById = async (id: number, dataToUpdate: ITarefa): Promise<ITarefa | ApiException> => {
     try {
-        const {data} = await Api().put('/tarefas/${id}', dataToUpdate);
+        const {data} = await Api().put(`/tarefas/${id}`, dataToUpdate);
         return data;
     } catch (error: any) {
         return new ApiException(error.message || 'Erro ao atualizar o registro');
@@ -41,7 +41,7 @@ const updateById = async (id: number, dataToUpdate: ITarefa): Promise<ITarefa | 
 };
 const deleteById = async (id: number): Promise<undefined | ApiException> => {
     try {
-        await Api().delete('/tarefas/${id}');
+        await Api().delete(`/tarefas/${id}`);
         return undefined;
     } catch (error: any) {
         return new ApiException(error.message || 'Erro ao apagar o registro');
