@@ -55,7 +55,7 @@ export const Dashboard = () => {
             } else {
                 setLista((oldList) => {
                     return oldList.map(oldListItem => {
-                        if (oldListItem.id === id) return result;
+                        if (oldListItem.id ===id) return result;
                         return oldListItem;
                     });
                 });  
@@ -63,6 +63,20 @@ export const Dashboard = () => {
         });
         
     }, [lista]);
+
+    const handleDelete = useCallback((id: number) => {        
+        TarefasService.deleteById(id)
+        .then((result) => {
+            if (result instanceof ApiException) {
+                alert(result.message)
+            } else {
+                setLista((oldList) => {
+                    return oldList.filter(oldListItem => oldListItem.id !== id);
+                });  
+            }
+        });
+        
+    }, []);
 
     return (
         <div>
@@ -80,6 +94,7 @@ export const Dashboard = () => {
                     checked={ListItem.isCompleted}
                     onChange={() => handleTogleComplete(ListItem.id)} />
                     {ListItem.title}
+                    <button onClick={() => {handleDelete(ListItem.id)}}>Apagar</button>
                     </li>
             })}
          </ul>
