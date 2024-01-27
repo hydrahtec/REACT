@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {ITarefa, TarefasService} from '../../shared/services/api/tarefas/TarefasService';
 import { ApiException } from '../../shared/services/api/ApiException';
@@ -44,20 +44,20 @@ export const Dashboard = () => {
         <input placeholder='Digite o proximo nome: '
             onKeyDown={handleInputKeyDown}
         />
-        <p>{lista.filter((ListItem) => ListItem.isSelected).length}</p>
+        <p>{lista.filter((ListItem) => ListItem.isCompleted).length}</p>
 
          <ul>
             {lista.map((ListItem) => {
-                return <li key={ListItem.title}>
+                return <li key={ListItem.id}>
                     <input type="checkbox" name="Selected" id="Selected" placeholder='Selecione' 
-                    checked={ListItem.isSelected}
+                    checked={ListItem.isCompleted}
                     onChange={() => {
                         setLista(oldList => {
                             return oldList.map(oldListItem => {
-                                const newIsSelected = oldListItem.title === ListItem.title ? !oldListItem.isSelected : oldListItem.isSelected;
+                                const newisCompleted = oldListItem.title === ListItem.title ? !oldListItem.isCompleted : oldListItem.isCompleted;
                                 return {
                                   ...ListItem,
-                                    isSelected: newIsSelected,
+                                    isSelected: newisCompleted,
                                 };
                             });
                         })
