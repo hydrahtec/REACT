@@ -27,14 +27,41 @@ export const Dashboard = () => {
             if (lista.some((listItem) => listItem.title === value)) return;
 
             TarefasService.create({title: value, isCompleted: false})
-            .then((result) => {
+                .then((result) => {
                 if (result instanceof ApiException) {
                     alert(result.message)
                 } else {
-                    setLista((oldList) => [...oldList, result]);
+                    setLista((oldList) => {
+                        return [
+                            ...oldList,
+                            result,
+                        ];
+                    });
                 }
             });
         }
+    }, [lista]);
+
+    const handleTogleComplete = useCallback((id: number) => {        
+        const tarefaToUpdate = lista.find((tarefa) => tarefa.id === id);
+        if (!tarefaToUpdate) return;
+
+        TarefasService.updateById(id, {
+            ...tarefaToUpdate,
+            isCompleted: !tarefaToUpdate.isCompleted,
+        }).then((result) => {
+            if (result instanceof ApiException) {
+                alert(result.message)
+            } else {
+                setLista((oldList) => {
+                    return oldList.map(oldListItem => {
+                        if (oldListItem.id === id) return result;
+                        return oldListItem;
+                    });
+                });  
+            }
+        });
+        
     }, [lista]);
 
     return (
@@ -49,19 +76,9 @@ export const Dashboard = () => {
          <ul>
             {lista.map((ListItem) => {
                 return <li key={ListItem.id}>
-                    <input type="checkbox" name="Selected" id="Selected" placeholder='Selecione' 
+                    <input type="checkbox" placeholder='Selecione' 
                     checked={ListItem.isCompleted}
-                    onChange={() => {
-                        setLista(oldList => {
-                            return oldList.map(oldListItem => {
-                                const newisCompleted = oldListItem.title === ListItem.title ? !oldListItem.isCompleted : oldListItem.isCompleted;
-                                return {
-                                  ...ListItem,
-                                    isSelected: newisCompleted,
-                                };
-                            });
-                        })
-                    }} />
+                    onChange={() => handleTogleComplete(ListItem.id)} />
                     {ListItem.title}
                     </li>
             })}
